@@ -1,0 +1,37 @@
+metadata_fields:
+  - strain
+  - date
+  - genbank_accession
+  - location
+renamed_metadata_fields:
+  - strain
+  - date
+  - accession
+  - full_location
+
+lat-longs: "config/lat_longs.tsv"
+
+segments:
+  - ha
+
+submission_date_field: date
+recency:
+  date_bins: [7, 30, 90]
+  date_bin_labels: ["last week", "last month", "last quarter"]
+  upper_bin_label: older
+
+builds:
+    "h3n2":
+      lineage: h3n2
+      reference: "config/h3n2/{segment}/reference.fasta"
+      annotation: "config/h3n2/{segment}/genemap.gff"
+      tree_exclude_sites: "config/h3n2/{segment}/exclude-sites.txt"
+      clades: "config/h3n2/ha/clades.tsv"
+      subclades: "config/h3n2/{segment}/subclades.tsv"
+      emerging_haplotypes: "config/h3n2/{segment}/emerging_haplotypes.tsv"
+      auspice_config: "config/h3n2/{segment}/auspice_config_insaflu.json"
+      enable_lbi: true
+      enable_glycosylation: true
+      subsamples:
+        global:
+            filters: "--group-by region year month --subsample-max-sequences 1000"
