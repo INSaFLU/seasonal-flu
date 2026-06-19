@@ -102,36 +102,36 @@
       ]
     },
     {
-      "key": "emerging_haplotype",
+      "key": "emerging_haplotype_ha",
       "title": "Emerging haplotype",
       "type": "categorical",
       "scale": [
         [
           "C.1.9",
-          "#4272CE"
+          "#4068CF"
         ],
         [
           "C.1.9.3",
-          "#58A2AC"
+          "#5098B9"
         ],
         [
           "D.3.1",
-          "#7DB877"
+          "#6CB28C"
         ],
         [
           "D.3.1.1",
-          "#AEBD50"
+          "#BFBB47"
+        ],
+        [
+          "D.3.1.1:139N",
+          "#DFA53B"
+        ],
+        [
+          "D.3.1.1:155E",
+          "#E67131"
         ],
         [
           "D.3.1.1:205K",
-          "#D8AE3E"
-        ],
-        [
-          "D.3.1:157L",
-          "#E67A32"
-        ],
-        [
-          "D.3.1:270A",
           "#DB2823"
         ]
       ]
@@ -149,6 +149,26 @@
     {
       "key": "cell_hi_cTiterSub",
       "title": "Antigenic advance (sub, ferret cell HI)",
+      "type": "continuous"
+    },
+    {
+      "key": "who_2025_2026_cTiterSub",
+      "title": "Antigenic advance (sub, WHO 2025-2026)",
+      "type": "continuous"
+    },
+    {
+      "key": "kikawa_2025_2026_cTiterSub",
+      "title": "Antigenic advance (sub, Kikawa 2025-2026)",
+      "type": "continuous"
+    },
+    {
+      "key": "kikawa_2025_2026_SCH_cTiterSub",
+      "title": "Antigenic advance (sub, Kikawa 2025-2026, SCH)",
+      "type": "continuous"
+    },
+    {
+      "key": "kikawa_2025_2026_PENN_cTiterSub",
+      "title": "Antigenic advance (sub, Kikawa 2025-2026, PENN)",
       "type": "continuous"
     },
     {
@@ -377,7 +397,7 @@
       "type": "categorical"
     },
     {
-      "key": "qc.overallStatus",
+      "key": "qc.overallStatus_ha",
       "title": "Nextclade QC(overallStatus)",
       "type": "categorical"
     },
@@ -404,7 +424,7 @@
   ],
   "display_defaults": {
     "map_triplicate": true,
-    "color_by": "emerging_haplotype",
+    "color_by": "emerging_haplotype_ha",
     "branch_label": "Subclade"
   },
   "filters": [

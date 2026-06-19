@@ -60,9 +60,9 @@ checkpoint align:
         "logs/align_{build_name}_{segment}.txt"
     params:
         genes = lambda w: ','.join(GENES[w.segment]),
-    threads: 8
+    threads: 1
     resources:
-        mem_mb=16000,
+        mem_mb=2000,
         time="0:30:00",
     shell:
         """
@@ -109,9 +109,9 @@ rule tree:
         method = config.get("tree", {}).get("method", "iqtree"),
         tree_builder_args = lambda wildcards: f"--tree-builder-args={config['tree']['tree-builder-args']}" if config.get("tree", {}).get("tree-builder-args") else "",
         override_default_args = lambda wildcards: "--override-default-args" if config.get("tree", {}).get("override_default_args", False) else "",
-    threads: 8
+    threads: 1
     resources:
-        mem_mb=16000,
+        mem_mb=4000,
         time="2:00:00",
     shell:
         """
@@ -150,6 +150,8 @@ rule prune_outliers:
     params:
         keep_strains_argument=lambda wildcards: "--keep-strains " + config["builds"][wildcards.build_name]["include"] if "include" in config["builds"][wildcards.build_name] else "",
         cutoff=config.get("prune_outliers_z_score_cutoff", 4.0),
+    resources:
+        mem_mb=2000,
     shell:
         """
         python3 scripts/flag_outliers.py \
@@ -172,6 +174,8 @@ rule sanitize_trees:
         "benchmarks/sanitize_trees_{build_name}.txt"
     log:
         "logs/sanitize_trees_{build_name}.txt"
+    resources:
+        mem_mb=2000,
     shell:
         """
         python3 scripts/sanitize_trees.py \
@@ -242,7 +246,7 @@ rule refine:
     log:
         "logs/refine_{build_name}_{segment}.txt"
     resources:
-        mem_mb=16000,
+        mem_mb=4000,
         time="2:00:00",
     shell:
         """
@@ -287,7 +291,7 @@ rule ancestral:
     log:
         "logs/ancestral_{build_name}_{segment}.txt"
     resources:
-        mem_mb=4000
+        mem_mb=2000
     shell:
         """
         augur ancestral \
@@ -313,7 +317,7 @@ rule traits:
     output:
         node_data = build_dir + "/{build_name}/{segment}/traits.json",
     params:
-        columns = "region"
+        columns = config.get("traits", {}).get("columns", "region"),
     conda: "../envs/nextstrain.yaml"
     benchmark:
         "benchmarks/traits_{build_name}_{segment}.txt"
@@ -419,30 +423,6 @@ rule import_clades:
             --tree {input.tree} \
             --clades {input.clades} \
             --output {output.node_data} 2>&1 | tee {log}
-        """
-
-rule emerging_haplotypes:
-    input:
-        nextclade=build_dir + "/{build_name}/metadata_with_nextclade.tsv",
-        haplotypes=lambda wildcards: config["builds"][wildcards.build_name].get("emerging_haplotypes"),
-    output:
-        haplotypes_table=build_dir + "/{build_name}/{segment}/emerging_haplotypes.tsv",
-        node_data=build_dir + "/{build_name}/{segment}/emerging_haplotypes.json",
-    params:
-        clade_column="clade",
-        membership_name="emerging_haplotype",
-    conda: "../envs/nextstrain.yaml"
-    log:
-        "logs/emerging_haplotypes_{build_name}_{segment}.txt"
-    shell:
-        r"""
-        python scripts/assign_haplotypes.py \
-            --substitutions {input.nextclade:q} \
-            --haplotypes {input.haplotypes:q} \
-            --clade-column {params.clade_column:q} \
-            --haplotype-column-name {params.membership_name:q} \
-            --output-table {output.haplotypes_table:q} \
-            --output-node-data {output.node_data:q} 2>&1 | tee {log}
         """
 
 rule annotate_derived_haplotypes:

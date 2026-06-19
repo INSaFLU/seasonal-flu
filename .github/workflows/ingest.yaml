@@ -16,13 +16,27 @@ on:
         description: "Specific container image to use for build (will override the default of `nextstrain build`)"
         required: false
         type: string
-      runtime:
-        description: "Nextstrain runtime"
-        type: choice
-        default: "docker"
-        options:
-          - "docker"
-          - "aws-batch"
+      triggerAvianFlu:
+        description: "Trigger nextstrain/avian-flu GenoFLU workflow"
+        type: boolean
+        required: true
+      artifact-name:
+        description: "Name to use for final artifact uploaded by this action"
+        required: false
+        type: string
+        default: "build-outputs-ingest"
+
+  workflow_call:
+    inputs:
+      triggerAvianFlu:
+        description: "Trigger nextstrain/avian-flu GenoFLU workflow"
+        type: boolean
+        required: true
+      artifact-name:
+        description: "Name to use for final artifact uploaded by this action"
+        required: false
+        type: string
+        default: "build-outputs-ingest"
 
 jobs:
   ingest:
@@ -31,14 +45,23 @@ jobs:
     uses: nextstrain/.github/.github/workflows/pathogen-repo-build.yaml@master
     secrets: inherit
     with:
-      runtime: ${{ inputs.runtime }}
+      runtime: aws-batch
       env: |
         NEXTSTRAIN_DOCKER_IMAGE: ${{ inputs.dockerImage }}
+        SLACK_CHANNELS: ${{ vars.SLACK_CHANNELS }}
+      # SLACK_TOKEN is a secret that is automatically passed via `inherit`
       run: |
         nextstrain build \
+          --env SLACK_CHANNELS \
+          --env SLACK_TOKEN \
+          --detach \
+          --cpus 16 \
+          --memory 28GiB \
           ingest \
           upload_all \
+          --set-threads run_nextclade=12 \
           --configfile build-configs/nextstrain-automation/config.yaml
+      artifact-name: ${{ inputs.artifact-name }}
       # Explicitly excluding `ingest/data` and `ingest/fauna/data`
       # since this is private data and should not available through the public artifacts
       artifact-paths: |
@@ -47,3 +70,16 @@ jobs:
         ingest/build.log
         ingest/logs/
         ingest/benchmarks/
+
+  trigger:
+    needs: [ingest]
+    runs-on: ubuntu-latest
+    steps:
+      - if: ${{ inputs.triggerAvianFlu }}
+        name: Trigger avian-flu/genoflu-gisaid.yaml
+        run: |
+          gh workflow run \
+            genoflu-gisaid.yaml \
+            --repo nextstrain/avian-flu
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN_NEXTSTRAIN_BOT_WORKFLOW_DISPATCH }}

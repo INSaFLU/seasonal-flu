@@ -58,7 +58,7 @@
           "#5098B9"
         ],
         [
-          "C.3.2",
+          "C.3.3",
           "#6CB28C"
         ],
         [
@@ -84,33 +84,51 @@
       ]
     },
     {
-      "key": "emerging_haplotype",
+      "key": "subclade_nextclade_ha",
+      "title": "HA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
+      "key": "subclade_nextclade_na",
+      "title": "NA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
+      "key": "emerging_haplotype_ha",
       "title": "Emerging haplotype",
       "type": "categorical",
       "scale": [
         [
+          "C.3",
+          "#3E5DD0"
+        ],
+        [
           "C.3.1",
-          "#4272CE"
+          "#60AA9E"
+        ],
+        [
+          "C.3.3",
+          "#4A8CC2"
         ],
         [
           "C.5.1",
-          "#58A2AC"
+          "#80B974"
         ],
         [
           "C.5.6",
-          "#7DB877"
-        ],
-        [
-          "C.5.6.1",
-          "#AEBD50"
-        ],
-        [
-          "C.5.6:189A",
-          "#D8AE3E"
+          "#A6BE55"
         ],
         [
           "C.5.6:75E",
-          "#E67A32"
+          "#CBB742"
+        ],
+        [
+          "C.5.6.1",
+          "#E29D39"
+        ],
+        [
+          "C.5.6.1:241Q",
+          "#E56A2F"
         ],
         [
           "C.5.7",
@@ -204,7 +222,7 @@
       "type": "categorical"
     },
     {
-      "key": "qc.overallStatus",
+      "key": "qc.overallStatus_ha",
       "title": "Nextclade QC(overallStatus)",
       "type": "categorical"
     }

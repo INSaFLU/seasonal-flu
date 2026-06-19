@@ -7,6 +7,53 @@ Changes for this project _do not_ currently follow the [Semantic Versioning rule
 Instead, changes appear below grouped by the date they were added to the workflow.
 The "__NEXT__" heading below describes changes in the unreleased development source code and as such may not be routinely kept up to date.
 
+# 8 June 2026
+
+- Add configuration interface, `traits`, to set the metadata columns to use for discrete trait analysis with `augur traits`.
+  See [#319](https://github.com/nextstrain/seasonal-flu/pull/319) for details.
+
+# 6 May 2026
+
+- *MAJOR CHANGE* The steps for running Nextclade and adding haplotype annotations
+  have been removed from the core workflow. If you would like to include
+  Nextclade and haplotype annotations in your build, then run the ingest workflow
+  first and use the outputs as inputs for the core workflow.
+  The Quickstart for GISAID has been updated to reflect this change.
+
+# 29 April 2026
+
+- The default ingest config produces metadata with multiple segment QC columns,
+  e.g. `qc.overallStatus_ha`. If you are using the ingest workflow metadata output
+  for filtering, make sure to update your filter query columns to match the new QC columns.
+
+# 21 April 2026
+
+- The ingest workflow now supports starting from a subset of segments defined by the `segments` config param.
+- The ingest workflow now supports running Nextclade and adding haplotype annotations to the metadata.
+  See the [default config](./ingest/defaults/config.yaml) for the config params for Nextclade and haplotypes.
+
+# 1 April 2026
+
+- *MAJOR CHANGE* Modified the default workflow to start from a single `metadata.tsv`
+and one or more `<segment>.fasta` files. The workflow no longer accepts just a single
+FASTA file with metadata in the sequence headers. The Quickstart GISAID build
+_has not_ been affected by this change and will continue to support the Excel
+metadata file.
+- Removed the following top level config params. They were mostly used by
+Nextstrain internal workflows and should not affect external users.
+    - fauna_fasta_fields
+    - fasta_fields
+    - prettify_fields
+    - data_source
+
+# 9 March 2026
+
+- Export Nextclade subclade columns for each segment to the build metadata (e.g., `subclade_nextclade_ha`, `subclade_nextclade_na`, etc.), allowing any segment's tree to color tips by any other segment's clade annotation. See [#258](https://github.com/nextstrain/seasonal-flu/pull/258) for details.
+
+# 18 December 2025
+
+- Updated quickstart guide for working with GISAID data. See [#282](https://github.com/nextstrain/seasonal-flu/pull/282) for details.
+
 # 22 October 2025
 
 - Set default clade and branch label to "subclade" for all public Nextstrain builds. See commit [6fb8478](https://github.com/nextstrain/seasonal-flu/commit/6fb8478234f65a576210ef6222899751d04a811c).
