@@ -24,55 +24,6 @@
       "type": "continuous"
     },
     {
-      "key": "clade_membership",
-      "title": "Clade",
-      "type": "categorical"
-    },
-    {
-      "key": "subclade",
-      "title": "Subclade",
-      "type": "categorical",
-      "scale": [
-        [
-          "B.4",
-          "#4068CF"
-        ],
-        [
-          "B.4.1",
-          "#5098B9"
-        ],
-        [
-          "B.4.2",
-          "#6CB28C"
-        ],
-        [
-          "B.4.2.1",
-          "#94BD62"
-        ],
-        [
-          "B.4.2.2",
-          "#BFBB47"
-        ],
-        [
-          "B.4.2.3",
-          "#DFA53B"
-        ],
-        [
-          "B.4.3",
-          "#E67131"
-        ],
-        [
-          "B.4.4",
-          "#DB2823"
-        ]
-      ]
-    },
-    {
-      "key": "subclade_nextclade_ha",
-      "title": "HA subclade (Nextclade)",
-      "type": "categorical"
-    },
-    {
       "key": "subclade_nextclade_na",
       "title": "NA subclade (Nextclade)",
       "type": "categorical"
@@ -170,13 +121,9 @@
   ],
   "display_defaults": {
     "map_triplicate": true,
-    "color_by": "subclade",
-    "branch_label": "Subclade",
-    "tip_label": "gisaid_strain"
+    "color_by": "country"
   },
   "filters": [
-    "clade_membership",
-    "subclade",
     "region",
     "country",
     "division",
@@ -191,11 +138,6 @@
     "map",
     "entropy",
     "frequencies"
-  ],
-  "metadata_columns": [
-    "gisaid_strain",
-    "accession_ha",
-    "accession_na"
   ],
   "extensions": {
     "nextclade": {
