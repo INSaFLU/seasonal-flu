@@ -32,4 +32,4 @@ builds:
       auspice_config: "config/vic/{segment}/auspice_config_insaflu.json"
       subsamples:
         global:
-            filters: "--group-by region year month --subsample-max-sequences 1000"
+            filters: " "

@@ -1,0 +1,191 @@
+{
+  "title": "INSaFLU Nextstrain build of influenza B/Vic",
+  "maintainers": [
+    {
+      "name": "INSA",
+      "url": "https://www.insa.min-saude.pt"
+    }
+  ],
+  "data_provenance": [
+    {
+      "name": "INSaFLU"
+    }
+  ],
+  "build_url": "https://github.com/INSaFLU/seasonal-flu",
+  "colorings": [
+    {
+      "key": "gt",
+      "title": "Genotype",
+      "type": "categorical"
+    },
+    {
+      "key": "num_date",
+      "title": "Date",
+      "type": "continuous"
+    },
+    {
+      "key": "clade_membership",
+      "title": "Clade",
+      "type": "categorical"
+    },
+    {
+      "key": "subclade",
+      "title": "Subclade",
+      "type": "categorical",
+      "scale": [
+        [
+          "B",
+          "#4068CF"
+        ],
+        [
+          "B.3",
+          "#5098B9"
+        ],
+        [
+          "B.5",
+          "#6CB28C"
+        ],
+        [
+          "B.7",
+          "#94BD62"
+        ],
+        [
+          "B.7.1",
+          "#BFBB47"
+        ],
+        [
+          "B.7.2",
+          "#DFA53B"
+        ],
+        [
+          "B.7.3",
+          "#E67131"
+        ],
+        [
+          "B.8",
+          "#DB2823"
+        ]
+      ]
+    },
+    {
+      "key": "subclade_nextclade_ha",
+      "title": "HA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
+      "key": "subclade_nextclade_na",
+      "title": "NA subclade (Nextclade)",
+      "type": "categorical"
+    },
+    {
+      "key": "lbi",
+      "title": "Local branching index",
+      "type": "continuous"
+    },
+    {
+      "key": "glyc",
+      "title": "Glycosylation changes",
+      "type": "continuous"
+    },
+    {
+      "key": "region",
+      "title": "Region",
+      "type": "categorical"
+    },
+    {
+      "key": "country",
+      "title": "Country",
+      "type": "categorical"
+    },
+     {
+      "key": "division",
+      "title": "Division",
+      "type": "categorical"
+    },
+    {
+      "key": "submitting_lab",
+      "title": "Submitting lab",
+      "type": "categorical"
+    },
+    {
+      "key": "originating_lab",
+      "title": "Originating lab",
+      "type": "categorical"
+    },
+    {
+      "key": "recency",
+      "title": "Submission date",
+      "type": "ordinal"
+    },
+    {
+      "key": "epiweek",
+      "title": "Epiweek (CDC)",
+      "type": "ordinal"
+    },
+    {
+      "key": "year_month",
+      "title": "Year/month",
+      "type": "categorical"
+    },
+    {
+      "key": "tsne_x",
+      "title": "t-SNE 1",
+      "type": "continuous"
+    },
+    {
+      "key": "tsne_y",
+      "title": "t-SNE 2",
+      "type": "continuous"
+    },
+    {
+      "key": "tsne_cluster",
+      "title": "t-SNE cluster",
+      "type": "categorical"
+    }
+  ],
+  "geo_resolutions": [
+    "division",
+    "country",
+    "region"
+  ],
+  "display_defaults": {
+    "map_triplicate": true,
+    "color_by": "subclade",
+    "branch_label": "Subclade",
+    "tip_label": "gisaid_strain"
+  },
+  "filters": [
+    "clade_membership",
+    "subclade",
+    "region",
+    "country",
+    "division",
+    "submitting_lab",
+    "recency",
+    "epiweek",
+    "year_month",
+    "tsne_cluster"
+  ],
+  "panels": [
+    "tree",
+    "map",
+    "entropy",
+    "frequencies"
+  ],
+  "metadata_columns": [
+    "gisaid_strain",
+    "accession_ha",
+    "accession_na"
+  ],
+  "extensions": {
+    "nextclade": {
+      "clade_node_attrs": [
+        {
+          "name": "subclade",
+          "displayName": "Subclade",
+          "description": "Experimental fine-grained subclade annotation."
+        }
+      ]
+    }
+  }
+}

@@ -34,4 +34,4 @@ builds:
       enable_glycosylation: true
       subsamples:
         global:
-            filters: "--group-by region year month --subsample-max-sequences 1000"
+            filters: " "
